@@ -77,6 +77,13 @@
     ignore_errors: true
     register: result
 
+  - name: Updating the state file
+    lineinfile:
+      path: "{{ statefile }}"
+      regexp: '^state='
+      line: 'state=failed'
+    when: result.failed == True
+
   - name: Updating the log file
     lineinfile:
       path: "{{ logfile }}"
